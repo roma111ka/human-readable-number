@@ -1,6 +1,6 @@
 module.exports = function toReadable (number) {
   let numbers = {
-    0: "zero",
+    0: "",
     1: "one",
     2: "two",
     3: "three",
@@ -31,17 +31,16 @@ module.exports = function toReadable (number) {
   }
   let resultReadbleNumber = '';
   if(number /100 >= 1){
-    resultReadbleNumber += `${numbers[Math.floor(number / 100)]} hungred`;
+    resultReadbleNumber += `${numbers[Math.floor(number / 100)]}`+' '+ 'hundred' +' ';
+    number=number%100;
   }
-  if(number%100 > 19){
-    result += `${numbers[Math.floor((number%100) / 10) * 10]} `; 
-    if(number%10 !== 0){
-      result += `${numbers[number % 10]}`;
-    }
+
+  if(number > 19){
+    resultReadbleNumber += `${numbers[number - number%10]}`+' '+`${numbers[number % 10]}`; 
   }else{
     resultReadbleNumber += `${numbers[number%20]}`;
   }
-  if (number == 0 && result == '') {
+  if (number === 0 && resultReadbleNumber == '') {
     return 'zero';
   }
   return resultReadbleNumber.trim();
